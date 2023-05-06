@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>ToDo List</title>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="title">ToDo List</h1>
+            <span>delete</span>
+            <span onclick="addTaskItem(this)">Add</span>
+        </div>
+        <p id="tasks-count"></p>
+        <ul class="task" id="task">
+            <li class="task_item">
+                <input type="checkbox" name="" id="">
+                <input type="text" placeholder="Do a very important task" id="description">
+                <span onclick="saveTask(this)">save</span>
+            </li>
+        </ul>
+    </div>
+</body>
+<script src="./app.js"></script>
+</html>
