@@ -2,10 +2,32 @@
 // variables
 
 const tasks = []
-const taskList = document.getElementById('task')
+const taskList = document.getElementById('todos')
+const form = document.getElementById('form')
+
+form.addEventListener('submit', (e)=>{
+    time = new Date()
+    e.preventDefault()
+    
+    const task = {
+        "id": tasks.length + 1,
+        "description": e.target.input.value,
+        "completed": false,
+        // "createdAt": `${time.getDay()}/${time.getMonth() + 1}/${time.getFullYear()}`
+    }
+
+    saveTask(task)
+
+    e.target.input.value = ''
+})
+
+// guarda la tarea
+const saveTask = (task)=>{
+    tasks.push(task)
+    showTasks()
+}
 
 // mostrar todas las tareas
-
 const showTasks = ()=>{
 
     if (!tasks.length == 0) {
@@ -24,26 +46,27 @@ const showTasks = ()=>{
 const showTasksITem = (item)=>{
     const li = document.createElement('li')
 
+    li.id = `li_${item.id}`
+
     li.innerHTML =  `
-        <input type="checkbox" name="" id="checkbox_${item.id}">
-        <input type="text" id="description_${item.id}" value="${item.description}" onchange="updatedTask(this)">
-        <span>${item.createdAt}</span>
+        <span id="checkbox_${item.id}" onclick="updateTodo(${item.id})" class="span">&#9898;</span>
+        <input type="text" id="description_${item.id}" value="${item.description}" onchange="updatedTask(this)" disabled="true" class="input-todo">
+        <span id="actions_${item.id}" class="span">${item.completed ? "&#10004;" : "&#8987;"}</span>
     `
 
-    li.classList.add('task_item')
+    // li.classList.add('task_item')
 
     taskList.appendChild(li)
 }
 
 // agrega un nuevo item en la lista de tareas
-
 const addTaskItem = ()=>{
     const li = document.createElement('li')
 
     li.innerHTML =  `
-        <input type="checkbox" name="" id="">
+        <input type="checkbox" name="" >
         <input type="text" placeholder="Do a very important task" id="description" >
-        <span onclick="saveTask(this)">save</span>
+        <span onclick="saveTask(this)"> &#10004;</span>
     `
 
     li.classList.add('task_item')
@@ -51,31 +74,67 @@ const addTaskItem = ()=>{
     taskList.appendChild(li)
 }
 
-// guarda la tarea
-const saveTask = ()=>{
-    const time = new Date()
-    const idTask = tasks.length + 1
-    const description = document.getElementById('description')
-    
-    let newTask = {
-        "id":idTask,
-        "description": description.value,
-        "done": false,
-        "createdAt": `${time.getDay()}/${time.getMonth() + 1}/${time.getFullYear()}`
-    }
-
-    tasks.push(newTask)
-
-    showTasks()
-}
 
 // actualiza una tarea
+const updateTodo = (id)=>{
+    const li = document.getElementById(`li_${id}`)
 
-const updatedTask = (event)=>{
+    todo = getOneTodo(id)
+
+    li.innerHTML = ''
+
+    li.innerHTML = `
+        <form id="form_${id}">
+            <input type="text" class="input edit" id="input_${id}" placeholder="Enter your todo" autocomplete="off" value="${todo.description}">
+        </form>
+    `
+    const form = document.getElementById('form_' + id)
+
+    form.addEventListener('input', ()=>{
+        todo.description = form.children[0].value
+    })
+
+    form.addEventListener('submit', (e)=>{
+        e.preventDefault()
+        showTasks()
+    })
+}
+
+// obtener una tarea
+const getOneTodo = (id)=>{
+    const todoOne = tasks.find(element => element.id == id)
+    return todoOne
+}
+
+//seleccionar una tarea
+
+const selectedTask = (id)=>{
+    const time = new Date()
+    description = document.getElementById(`description_${id}`)
+    actions = document.getElementById(`actions_${id}`)
+
+    description.disabled = false
+    actions.innerHTML = '&#10004;'
+
+    taskOne = tasks.find(element => element.id == id)
+
     
-    alert(event.value)
-    console.log(event.value)
-    // saveTask()
+
+    actions.addEventListener('click', ()=>{
+        showTasks()
+    })
+}
+
+// preparar lista de tareas para ser borradas
+
+const deleteTasks = ()=>{
+    const tasksEl = document.querySelectorAll("li")
+
+    tasksEl.forEach(element => {
+        const checkbox = document.getElementById(element.children[0].id)
+
+        checkbox.innerHTML = `<span>&#10006;</span>`
+    });
 }
 
 showTasks()

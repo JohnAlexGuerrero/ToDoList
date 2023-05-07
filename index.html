@@ -8,20 +8,30 @@
     <title>ToDo List</title>
 </head>
 <body>
+    
     <div class="container">
+        <h1 class="title">ToDo List</h1>
+        
+        <form id="form">
+            <input type="text" class="input" id="input" placeholder="Enter your todo" autocomplete="off">
+        </form>
+        
+        <small id="tasks-count"></small>
+        
         <div class="header">
-            <h1 class="title">ToDo List</h1>
-            <span>delete</span>
+            
+            <span onclick="deleteTasks()">delete</span>
             <span onclick="addTaskItem(this)">Add</span>
         </div>
-        <p id="tasks-count"></p>
-        <ul class="task" id="task">
+        
+        <ul class="todos" id="todos"></ul>
+        <!-- <ul class="task" id="task">
             <li class="task_item">
-                <input type="checkbox" name="" id="">
+                <span></span>
                 <input type="text" placeholder="Do a very important task" id="description">
-                <span onclick="saveTask(this)">save</span>
+                <span onclick="saveTask(this)">&#10004;</span>
             </li>
-        </ul>
+        </ul> -->
     </div>
 </body>
 <script src="./app.js"></script>
