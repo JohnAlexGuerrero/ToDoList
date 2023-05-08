@@ -4,6 +4,11 @@
 const tasks = []
 const taskList = document.getElementById('todos')
 const form = document.getElementById('form')
+const modal = document.getElementById('modal')
+const hms = document.getElementById("hms")
+
+let timeTimer = 25*60
+var countdown
 
 form.addEventListener('submit', (e)=>{
     time = new Date()
@@ -51,7 +56,7 @@ const showTasksITem = (item)=>{
     li.innerHTML =  `
         <span id="checkbox_${item.id}" onclick="updateTodo(${item.id})" class="span">&#9898;</span>
         <input type="text" id="description_${item.id}" value="${item.description}" onchange="updatedTask(this)" disabled="true" class="input-todo">
-        <span id="actions_${item.id}" class="span">${item.completed ? "&#10004;" : "&#8987;"}</span>
+        <span class="span" onclick="openModal(${item.id})">${item.completed ? "&#10004;" : "&#8987;"}</span>
     `
 
     // li.classList.add('task_item')
@@ -107,7 +112,6 @@ const getOneTodo = (id)=>{
 }
 
 //seleccionar una tarea
-
 const selectedTask = (id)=>{
     const time = new Date()
     description = document.getElementById(`description_${id}`)
@@ -126,7 +130,6 @@ const selectedTask = (id)=>{
 }
 
 // preparar lista de tareas para ser borradas
-
 const deleteTasks = ()=>{
     const tasksEl = document.querySelectorAll("li")
 
@@ -136,5 +139,52 @@ const deleteTasks = ()=>{
         checkbox.innerHTML = `<span>&#10006;</span>`
     });
 }
+
+// modal
+const openModal = (id)=>{
+    modal.style.display = "block"
+
+    // task = getOneTodo(id)
+}
+
+const closeModal = ()=>{
+    modal.style.display = "none"
+}
+
+//pomodoro
+const startTimer = ()=>{
+    document.querySelector('.btn-start').style.display = 'none'
+    document.querySelector('.btn-stop').style.display = 'block'
+
+
+    console.log(timeTimer)
+    countdown = setInterval(()=>{
+        let minutes = Math.floor(timeTimer/60)
+        let seconds = timeTimer % 60
+        seconds = seconds < 10 ? '0' + seconds : seconds
+        minutes = minutes < 10 ? '0' + minutes : minutes
+        hms.innerHTML = `${minutes}:${seconds}`
+        timeTimer--
+        if (timeTimer < 0) {
+            clearInterval(countdown)
+            hms.innerHTML = 'Descanza un momento.'
+        }
+    },1000)
+}
+
+const stopTimer = ()=>{
+    document.querySelector('.btn-start').style.display = 'block'
+    document.querySelector('.btn-stop').style.display = 'none'
+    clearInterval(countdown)
+}
+
+const resetTimer = ()=>{
+    document.querySelector('.btn-reset').style.display = 'block'
+
+    clearInterval(countdown)
+    timeTimer = 25*60
+    hms.innerHTML = `${Math.floor(timeTimer/60)}:00`
+}
+
 
 showTasks()

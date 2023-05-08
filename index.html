@@ -33,6 +33,25 @@
             </li>
         </ul> -->
     </div>
+
+    <!-- <button id="myBtn" onclick="openModal()">Open Modal</button> -->
+
+    <!-- The Modal -->
+    <div id="modal" class="modal" >
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <p>Some text in the Modal..</p>
+            <div class="cronometro">
+                <div id="hms">00:00</div>
+                <div class="btn-start" onclick="startTimer()">start</div>        
+                <div class="btn-stop" onclick="stopTimer()">stop</div>
+                <div class="btn-reset" onclick="resetTimer()">restart</div>
+            </div>
+        </div>
+
+    </div>
 </body>
 <script src="./app.js"></script>
 </html>
