@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,51 +8,91 @@
     <link rel="stylesheet" href="style.css">
     <title>ToDo List</title>
 </head>
+
 <body>
-    
+
     <div class="container">
+        <div class="notification " id="notification">  
+        </div>
+
+
         <h1 class="title">ToDo List</h1>
-        
+
+
+        <div id="calendar"></div>
+
         <form id="form">
-            <input type="text" class="input" id="input" placeholder="Enter your todo" autocomplete="off">
+            <input type="text" class="input" id="input" placeholder="Create a new todo.." autocomplete="off">
         </form>
-        
+
         <small id="tasks-count"></small>
-        
-        <div class="header">
-            
+
+        <div class="card" >
+            <div class="card-header">
+                <div class="title" id="title-timer">ya casi es mi cumpleaños</div>
+                <div class="icon active" id="play">start</div>
+                <div class="icon" id="stop">start</div>
+                <div class="icon" id="reset">start</div>
+            </div>
+            <div class="card-body">
+                <div class="timer">
+                    <div class="minutes">
+                        <div>
+                            <span class="digits" id="min-one">1</span>
+                            <span class="digits" id="min-two">2</span>
+                        </div>
+                        <small>minutes</small>
+                    </div>
+                    <!-- <div class="digits">:</div> -->
+                    <div class="seconds">
+                        <div>
+                            <span class="digits" id="sec-one">5</span>
+                            <span class="digits" id="sec-two">8</span>
+                        </div>
+
+                        <small>seconds</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="header_">
             <span onclick="deleteTasks()">delete</span>
             <span onclick="addTaskItem(this)">Add</span>
         </div>
-        
+
         <ul class="todos" id="todos"></ul>
-        <!-- <ul class="task" id="task">
-            <li class="task_item">
-                <span></span>
-                <input type="text" placeholder="Do a very important task" id="description">
-                <span onclick="saveTask(this)">&#10004;</span>
-            </li>
-        </ul> -->
     </div>
 
-    <!-- <button id="myBtn" onclick="openModal()">Open Modal</button> -->
+    
+
 
     <!-- The Modal -->
-    <div id="modal" class="modal" >
+    <div id="modal" class="modal">
 
         <!-- Modal content -->
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <p>Some text in the Modal..</p>
-            <div class="cronometro">
-                <div id="hms">00:00</div>
-                <div class="btn-start" onclick="startTimer()">start</div>        
+            <p>Mobile App Design..</p>
+            <div class="temporizador">
+                <button>
+                    Sesion 1
+                </button>
+                <div id="hms" class="time-timer">25:00</div>
+                <div class="btn-start ti-control-play" onclick="startTimer()">start</div>
                 <div class="btn-stop" onclick="stopTimer()">stop</div>
                 <div class="btn-reset" onclick="resetTimer()">restart</div>
             </div>
+
         </div>
+    </div>
+
 
     </div>
 </body>
+
 <script src="./app.js"></script>
+<script src="./timer.js"></script>
+<!-- <script src="./calendar.js"></script> -->
+
 </html>

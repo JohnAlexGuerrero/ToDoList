@@ -6,9 +6,11 @@ const taskList = document.getElementById('todos')
 const form = document.getElementById('form')
 const modal = document.getElementById('modal')
 const hms = document.getElementById("hms")
+const notificationEl = document.getElementById("notification")
 
 let timeTimer = 25*60
 var countdown
+var modalClosed = false
 
 form.addEventListener('submit', (e)=>{
     time = new Date()
@@ -58,8 +60,6 @@ const showTasksITem = (item)=>{
         <input type="text" id="description_${item.id}" value="${item.description}" onchange="updatedTask(this)" disabled="true" class="input-todo">
         <span class="span" onclick="openModal(${item.id})">${item.completed ? "&#10004;" : "&#8987;"}</span>
     `
-
-    // li.classList.add('task_item')
 
     taskList.appendChild(li)
 }
@@ -144,46 +144,39 @@ const deleteTasks = ()=>{
 const openModal = (id)=>{
     modal.style.display = "block"
 
-    // task = getOneTodo(id)
+    document.getElementById('').style.display = 'none'
+    modalClosed = false
+    
 }
 
 const closeModal = ()=>{
     modal.style.display = "none"
+    
+    // document.getElementById('timer').style.display = 'block'
+    modalClosed = true
 }
 
-//pomodoro
-const startTimer = ()=>{
-    document.querySelector('.btn-start').style.display = 'none'
-    document.querySelector('.btn-stop').style.display = 'block'
 
 
-    console.log(timeTimer)
-    countdown = setInterval(()=>{
-        let minutes = Math.floor(timeTimer/60)
-        let seconds = timeTimer % 60
-        seconds = seconds < 10 ? '0' + seconds : seconds
-        minutes = minutes < 10 ? '0' + minutes : minutes
-        hms.innerHTML = `${minutes}:${seconds}`
-        timeTimer--
-        if (timeTimer < 0) {
-            clearInterval(countdown)
-            hms.innerHTML = 'Descanza un momento.'
-        }
-    },1000)
-}
+/*Notification */
 
-const stopTimer = ()=>{
-    document.querySelector('.btn-start').style.display = 'block'
-    document.querySelector('.btn-stop').style.display = 'none'
-    clearInterval(countdown)
-}
+const notification = (title, time)=>{
+    notificationEl.innerHTML = ''
 
-const resetTimer = ()=>{
-    document.querySelector('.btn-reset').style.display = 'block'
+    notificationEl.innerHTML = `
+        <span id="" class="span">&#9898;</span>
+        <div class="content">
+            <p>Mobile App Design</p>
+            <span class="span">30 minutes</span>
+        </div>
+        <div class="content">
+            <span>1/4</span>
+            <p id="timer" class="timer"></p>
+        </div>
+        <span class="close" >&times;</span>
+    `
 
-    clearInterval(countdown)
-    timeTimer = 25*60
-    hms.innerHTML = `${Math.floor(timeTimer/60)}:00`
+    
 }
 
 
